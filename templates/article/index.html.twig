@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+
+{% for article in articles %}
+    <h3>{{ article.title|raw}}</h3>
+    {{ article.content|raw}}
+    <form action="{{path('app_article_delete', {id: article.id})}}" method="POST">
+        <input type="hidden" name="csrf" value="{{ csrf_token('delete' ~ article.id) }}">
+        <input type="submit" value="Supprimer">
+    </form>
+{% else %}
+    <p>Aucun article</p>
+{% endfor %}
+
+<h2>Ajouter un article</h2>
+{{ form(form) }}
+{% endblock %}
